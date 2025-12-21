@@ -20,12 +20,26 @@ class ProductItem extends StatelessWidget {
       onTap: () => onClick(),
       child: Row(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadiusGeometry.all(Radius.circular(20)),
-            child: Image.network(url, width: 50, height: 50, fit: BoxFit.fill),
+          Expanded(
+            child: ClipRRect(
+              borderRadius: BorderRadiusGeometry.all(Radius.circular(20)),
+              child: Image.network(
+                url,
+                width: 50,
+                height: 50,
+                fit: BoxFit.fill,
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.asset("assets/images/icon_avatar.png");
+                },
+              ),
+            ),
           ),
           SizedBox(width: 10),
-          Column(children: [Text(tenSp), SizedBox(height: 5), Text(tenShop)]),
+          Expanded(
+            child: Column(
+              children: [Text(tenSp), SizedBox(height: 5), Text(tenShop)],
+            ),
+          ),
         ],
       ),
     );

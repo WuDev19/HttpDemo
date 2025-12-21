@@ -6,7 +6,6 @@ class Product {
   final String thumbnail;
   final int giamgia;
   final int numberBought;
-  final int maNguoiBan;
 
   Product({
     required this.maSp,
@@ -16,7 +15,6 @@ class Product {
     required this.thumbnail,
     required this.giamgia,
     required this.numberBought,
-    required this.maNguoiBan,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -28,7 +26,6 @@ class Product {
       thumbnail: json["thumbnail"],
       giamgia: json["giamgia"],
       numberBought: json["numberBought"],
-      maNguoiBan: json["maNguoiBan"],
     );
   }
 
@@ -41,7 +38,6 @@ class Product {
       'thumbnail': thumbnail,
       'giamgia': giamgia,
       'numberBought': numberBought,
-      'maNguoiBan': maNguoiBan,
     };
   }
 

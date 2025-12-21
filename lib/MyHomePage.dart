@@ -1,10 +1,7 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:httpdemo/Product.dart';
-import 'package:httpdemo/Response.dart';
 import 'package:httpdemo/product_item.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -32,8 +29,7 @@ class MyHomePage extends StatelessWidget {
                   return Center(child: Text(asyncSnapshot.error.toString()));
                 }
                 if (asyncSnapshot.hasData) {
-                  var response = asyncSnapshot.data as Response;
-                  List<Product> listProduct = response.contents;
+                  var listProduct = asyncSnapshot.data as List<Product>;
                   return ListView.separated(
                     itemBuilder: (context, index) {
                       return ProductItem(
@@ -87,19 +83,22 @@ class MyHomePage extends StatelessWidget {
     );
   }
 
-  Future<Response> getProduct() async {
+  Future<List<Product>> getProduct() async {
     var api = "10.0.2.2:8080";
-    final uri = Uri.http(api, "/api/sanpham/get", {"pageNumber": "0"});
+    final uri = Uri.http(api, "/api/product/get/all");
     var response = await http.get(uri);
     if (response.statusCode == 200) {
       var json = jsonDecode(
         response.body,
-      ); //kết quả trả về dạng string, phải decode sang json
-      return Response.fromJson(json); //convert sang model
+      ) as List<dynamic>; //kết quả trả về dạng string, phải decode sang json
+      print(json);
+      return json.map((e) => Product.fromJson(e)).toList();
+      //convert sang model
     } else {
       //ném lỗi để bên future builder bắt chỗ hasError
       print(response.body);
       throw Exception(response.body);
     }
   }
+
 }
