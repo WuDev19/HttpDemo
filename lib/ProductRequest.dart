@@ -1,15 +1,28 @@
 import 'package:httpdemo/Product.dart';
 
-class ProductRequest extends Product {
+class ProductRequest {
+  String tenNguoiBan;
+  int giaSp;
+  String motaSp;
+  String thumbnail;
+  int giamgia;
 
   ProductRequest({
-    required super.maSp,
-    required super.tenNguoiBan,
-    required super.giaSp,
-    required super.motaSp,
-    required super.thumbnail,
-    required super.giamgia,
-    required super.numberBought,
+    required this.tenNguoiBan,
+    required this.giaSp,
+    required this.motaSp,
+    required this.thumbnail,
+    required this.giamgia,
   });
+
+  Map<String, dynamic> toJson(){
+    return {
+      "tenNguoiBan": tenNguoiBan,
+      "giaSp": giaSp,
+      "motaSp": motaSp,
+      "thumbnail": thumbnail,
+      "giamgia": giamgia
+    };
+  }
 
 }
